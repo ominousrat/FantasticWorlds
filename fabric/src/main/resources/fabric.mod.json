@@ -17,6 +17,10 @@
   "environment": "*",
   "entrypoints":
   {
+    "terrablender":
+    [
+      "mod.rat_pack_studios.fantastic_worlds.fabric.FabricFW"
+    ],
     "main":
     [
       "mod.rat_pack_studios.fantastic_worlds.fabric.FabricFW"

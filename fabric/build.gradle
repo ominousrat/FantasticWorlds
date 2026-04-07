@@ -3,27 +3,39 @@ plugins
     id 'fabric-loom' version "${loom_version}"
 }
 
+base
+{
+    archivesBaseName("${mod_id}-fabric-${mod_version}+${minecraft_version}")
+}
+
 repositories
 {
-    mavenLocal()
     mavenCentral()
+    mavenLocal()
+    
+    maven
+    {
+        url = 'https://maven.minecraftforge.net/'
+    }
 }
 
 dependencies
 {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.officialMojangMappings()
     
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     
-    compileOnly project(":Common")
+    modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.21.5-5.0.0.1'
+    
+    compileOnly(project(":common"))
 }
 
 loom
 {
-    accessWidenerPath = project(":Common").file("src/main/resources/${mod_id}.accesswidener")
+    
+    accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
     
     mixin
     {
@@ -32,41 +44,56 @@ loom
     
     runs
     {
-        client
+        
+        named("client")
         {
             client()
-            setConfigName("Fabric Minecraft Client")
             ideConfigGenerated(true)
+            configName("Fabric Minecraft Client")
             runDir("run")
         }
         
-        server
+        named("server")
         {
             server()
-            setConfigName("Fabric Minecraft Server")
             ideConfigGenerated(true)
+            configName("Fabric Minecraft Server")
             runDir("run")
         }
     }
 }
 
-base.archivesName.set("${project.mod_id}-fabric")
-
 processResources
 {
-    from project(":Common").sourceSets.main.resources
+    filesMatching("fabric.mod.json")
+    {
+        expand project.properties
+    }
+    
+    from project(":common").sourceSets.main.resources
 }
 
+java
+{
+    withSourcesJar()
+    //withJavadocJar()
+    
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
 jar
 {
-    from("LICENSE")
-    {
-        rename { "${it}_${base.archivesName.get()}"}
+    inputs.property "archivesName", project.base.archivesName
+    
+    from("LICENSE") {
+        rename { "${it}_${inputs.properties.archivesName}"}
     }
 }
 
 tasks.withType(JavaCompile).configureEach
 {
-    source(project(":Common").sourceSets.main.allSource)
+    options.encoding = "UTF-8"
+    
+    source(project(":common").sourceSets.main.allSource)
 }

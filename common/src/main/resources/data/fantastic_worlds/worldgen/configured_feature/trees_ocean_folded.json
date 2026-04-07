@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "fantastic_worlds:folded_tree",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.66,
+        "feature": {
+          "feature": "fantastic_worlds:folded_tree",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

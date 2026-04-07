@@ -4,16 +4,15 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "refmap": "fantastic_worlds.refmap.json",
-  "mixins":
-  [
-
+  "mixins": [
+    "FWBasaltColumnsFeatureMixin",
+    "FWDeltaFeatureMixin",
+    "FWFeatureFlagsMixin",
+    "FWNoiseBasedChunkGeneratorMixin"
   ],
-  "injectors":
-  {
+  "injectors": {
     "defaultRequire": 1
   },
-  "client":
-  [
-
+  "client": [
   ]
 }

@@ -1,0 +1,61 @@
+{
+  "dimensions": {
+    "minecraft:overworld": {
+      "type": "fantastic_worlds:fantastic_worlds",
+      "generator": {
+        "type": "fantastic_worlds:overworld",
+        "biome_source": {
+          "type": "minecraft:multi_noise",
+          "biomes": [
+            {
+              "biome": "fantastic_worlds:ocean",
+              "parameters": {
+                "temperature": 0,
+                "humidity": 0,
+                "continentalness": [-0.63,1],
+                "erosion": 0,
+                "weirdness": 0,
+                "depth": 0,
+                "offset": 0
+              }
+            },
+            {
+              "biome": "fantastic_worlds:ocean_folds",
+              "parameters": {
+                "temperature": 0,
+                "humidity": 0,
+                "continentalness": [-1, -0.63],
+                "erosion": 0,
+                "weirdness": 0,
+                "depth": 0,
+                "offset": 0
+              }
+            }
+          ]
+        },
+        "settings": "fantastic_worlds:fantastic_world"
+      }
+    },
+    "minecraft:the_end": {
+      "type": "minecraft:the_end",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:the_end"
+        },
+        "settings": "minecraft:end"
+      }
+    },
+    "minecraft:the_nether": {
+      "type": "minecraft:the_nether",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:multi_noise",
+          "preset": "minecraft:nether"
+        },
+        "settings": "minecraft:nether"
+      }
+    }
+  }
+}
